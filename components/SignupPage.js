@@ -1,5 +1,5 @@
 import React from "react";
-import { SafeAreaView, StyleSheet, TextInput, Button, Text, View } from "react-native";
+import { SafeAreaView, StyleSheet, TextInput, Button, Text, View, TouchableOpacity, ScrollView } from "react-native";
 
 const SignupPage = (props) => {
   //const [text, onChangeText] = React.useState("Useless Text");
@@ -39,20 +39,21 @@ const SignupPage = (props) => {
   };
 
   return (
-    <SafeAreaView style={{ flex: 1 }}>
+    <SafeAreaView style={styles.container}>
         <Text style={styles.header}>Todo App</Text>
-        <View style={styles.container}>
-            <Text>Sign Up</Text>
+        <View style={styles.formContainer}>
+        <ScrollView>
+            <Text style={styles.heading}>Sign Up</Text>
         {/* <Text>Name</Text> */}
-      <TextInput
+    <TextInput
         style={styles.input}
-        onChangeText={(name) => setEmail(name)}
+        onChangeText={(name) => setName(name)}
         value={name}
         placeholder="Name"
-      />
+    />
         
         {/* <Text>Email address</Text> */}
-      <TextInput
+    <TextInput
         style={styles.input}
         onChangeText={(email) => {
             setEmail(email);
@@ -74,19 +75,29 @@ const SignupPage = (props) => {
         placeholder="Password"
       />
       {passwordError ? <Text>{passwordError}</Text> : null}
-      <Button
+      {/* <Button
         style={styles.button}
         title="Sign Up"
         onPress={handleSubmit}
         color='#8a2be2'
-      />
-      <Text>
-        Already have an account?
-        <Button
-        title="Login"
-        onPress={() => props.navigation.navigate('Login')}
-        />
-      </Text>
+      /> */}
+      <TouchableOpacity
+            style={styles.button}
+            onPress={handleSubmit}
+        >
+            <Text>Signup</Text>
+        </TouchableOpacity>
+        <View style={styles.footing}>
+            <Text>
+            Already have an account?
+            {/* <Button
+            title="Login"
+            onPress={() => props.navigation.navigate('Login')}
+            /> */}
+            </Text>
+            <Text onPress={() => props.navigation.navigate('Login')} style={styles.footingbtn}>Login</Text>
+        </View>
+        </ScrollView>
         </View>
     </SafeAreaView>
   );
@@ -97,36 +108,53 @@ const styles = StyleSheet.create({
         height: 40,
         margin: 12,
         borderWidth: 1,
+        borderColor: 'white',
+        borderBottomColor: 'black',
         padding: 10,
-        color: 'purple'
+        color: 'black',
       },
-      header: {
+    container: {
+        flex : 1,
+        backgroundColor: 'gray'
+    },
+    header: {
         flex: 1,
         textAlign: "center",
         textAlignVertical: "center",
         number: 30,
         fontWeight: "bold",
-        backgroundColor: 'purple',
-      },
-      container: {
+        //backgroundColor: 'gray',
+    },
+    formContainer: {
         flex: 2,
-        backgroundColor: 'beige',
-      },
-      button: {
+        backgroundColor: 'white',
+        padding: 20,
+        //flexDirection: 'row',
+        //justifyContent: 'space-evenly',
+        borderTopRightRadius: 20,
+        borderTopLeftRadius: 20,
+        elevation: 6,
+        //alignItems: 'center',
+    },
+    button: {
         alignItems: 'center',
         justifyContent: 'center',
         paddingVertical: 12,
         paddingHorizontal: 12,
-        borderRadius: 10,
+        borderRadius: 30,
         elevation: 4,
-        backgroundColor: 'purple',
-      },
-      heading: {
-    
-      },
-      footing: {
-        
-      }
+        backgroundColor: 'magenta',
+    },
+    heading: {
+        margin: 22
+    },
+    footing: {
+        alignItems: 'center',
+        flexDirection: 'row',
+    },
+    footingbtn: {
+        margin: 10,
+    },
     
 });
 

@@ -1,11 +1,13 @@
 import React from "react";
-import { SafeAreaView, StyleSheet, TextInput, Button, Text, View } from "react-native";
+import { SafeAreaView, StyleSheet, TextInput, Button, Text, View, TouchableOpacity, ScrollView } from "react-native";
 
 const LoginPage = (props) => {
   //const [text, onChangeText] = React.useState("Useless Text");
   const [email, setEmail] = React.useState();
   const [emailError, setEmailError] = React.useState();
   const [password, setPassword] = React.useState();
+  const [passwordVisibility, setPasswordVisibility] = React.useState(true);
+  const [hideShowText, setHideShowText] = React.useState('Show');
   // const [number, onChangeNumber] = React.useState(null);
 
   const emailValidator = (email) => {
@@ -24,13 +26,24 @@ const LoginPage = (props) => {
     console.log("submitting");
   }
 
+  const handlePasswordVisibility = () => {
+    if(hideShowText === 'Show'){
+      setHideShowText('Hide');
+      setPasswordVisibility(!passwordVisibility);
+    }else if(hideShowText === 'Hide'){
+      setHideShowText('Show');
+      setPasswordVisibility(!passwordVisibility);
+    }
+  }
+
   // const signUp = () => {
   //   console.log("signing up");
   // }
   return (
-    <SafeAreaView style={{flex: 1}}>
+    <SafeAreaView style={styles.container}>
       <Text style={styles.header}>Todo App</Text>
-      <View style={styles.container}>
+      <View style={styles.formContainer}>
+        <ScrollView>
         <Text style={styles.heading}>Login</Text>
       {/* <Text style={styles.}>Email address</Text> */}
       <TextInput
@@ -45,26 +58,39 @@ const LoginPage = (props) => {
       />
       {emailError ? <Text>{emailError}</Text> : null}
       {/* <Text>Password</Text> */}
-      <TextInput
-        style={styles.input}
-        onChangeText={(password) => setPassword(password)}
-        value={password}
-        placeholder="Password"
-        secureTextEntry={true}
-      />
-      <Button
+      <View style={styles.passwordField}>
+        <TextInput
+          style={styles.passInput}
+          onChangeText={(password) => setPassword(password)}
+          value={password}
+          placeholder="Password"
+          secureTextEntry={passwordVisibility}
+        />
+        <Text onPress={handlePasswordVisibility}>{hideShowText}</Text>
+      </View>
+      {/* <Button
         style={styles.button}
         title="Login"
         onPress={handleSubmit}
         color='#8a2be2'
-      />
-      <Text style={styles.footing}>
-        New User?
-        <Button
-        title="Sign-up"
-        onPress={() => props.navigation.navigate('Signup')}
-        />
-      </Text>
+      /> */}
+      <TouchableOpacity
+        style={styles.button}
+        onPress={handleSubmit}
+      >
+        <Text>Login</Text>
+      </TouchableOpacity>
+      <View style={styles.footing}>
+        <Text>
+          New User?
+          {/* <Button
+          title="Sign-up"
+          onPress={() => props.navigation.navigate('Signup')}
+          /> */}
+        </Text>
+        <Text onPress={() => props.navigation.navigate('Signup')} style={styles.footingbtn}>Sign Up</Text>
+      </View>
+      </ScrollView>
       </View>
     </SafeAreaView>
   );
@@ -72,39 +98,71 @@ const LoginPage = (props) => {
 
 const styles = StyleSheet.create({
   input: {
-    height: 40,
-    margin: 12,
-    borderWidth: 1,
-    padding: 10,
+      height: 40,
+      margin: 12,
+      borderWidth: 1,
+      borderColor: 'white',
+      borderBottomColor: 'black',
+      padding: 10,
+      color: 'black',
+    },
+  container: {
+      flex : 1,
+      backgroundColor: 'gray'
   },
   header: {
-    flex: 1,
-    textAlign: "center",
-    textAlignVertical: "center",
-    number: 30,
-    fontWeight: "bold",
-    backgroundColor: 'purple',
+      flex: 1,
+      textAlign: "center",
+      textAlignVertical: "center",
+      number: 30,
+      fontWeight: "bold",
+      //backgroundColor: 'gray',
   },
-  container: {
-    flex: 2,
-    backgroundColor: 'beige'
+  formContainer: {
+      flex: 2,
+      backgroundColor: 'white',
+      padding: 20,
+      //flexDirection: 'row',
+      //justifyContent: 'space-evenly',
+      borderTopRightRadius: 20,
+      borderTopLeftRadius: 20,
+      elevation: 6,
+      //alignItems: 'center',
   },
   button: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    paddingVertical: 12,
-    paddingHorizontal: 12,
-    borderRadius: 10,
-    elevation: 4,
-    backgroundColor: 'purple',
+      alignItems: 'center',
+      justifyContent: 'center',
+      paddingVertical: 12,
+      paddingHorizontal: 12,
+      borderRadius: 30,
+      elevation: 4,
+      backgroundColor: 'magenta',
   },
   heading: {
-
+    margin: 22,
   },
   footing: {
-    
+      alignItems: 'center',
+      flexDirection: 'row',
+  },
+  footingbtn: {
+      margin: 10,
+  },
+  passwordField: {
+      flexDirection: 'row',
+      width: '100%',
+      alignItems: 'center',
+  },
+  passInput: {
+    height: 40,
+      margin: 12,
+      borderWidth: 1,
+      borderColor: 'white',
+      borderBottomColor: 'black',
+      padding: 10,
+      color: 'black',
+      width: '80%',
   }
-
 });
 
 export default LoginPage;
