@@ -1,7 +1,7 @@
 import React from "react";
 import { Text, Button, SafeAreaView, StyleSheet, View, TouchableOpacity } from "react-native";
 
-const HomePage = (props) => {
+const HomePage = ({navigation}) => {
     return (
         <SafeAreaView style={styles.container} >
             <Text style={styles.header}>Welcome to Todo App</Text>
@@ -18,13 +18,13 @@ const HomePage = (props) => {
                 /> */}
                 <TouchableOpacity
                     style={styles.button}
-                    onPress={() => props.navigation.navigate('Login')}
+                    onPress={() => navigation.navigate('Login')}
                 >
                     <Text>Login</Text>
                 </TouchableOpacity>
                 <TouchableOpacity
                     style={styles.button}
-                    onPress={() => props.navigation.navigate('Signup')}
+                    onPress={() => navigation.navigate('Signup')}
                 >
                     <Text>Signup</Text>
                 </TouchableOpacity>

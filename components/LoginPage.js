@@ -1,14 +1,20 @@
 import React from "react";
-import { SafeAreaView, StyleSheet, TextInput, Button, Text, View, TouchableOpacity, ScrollView } from "react-native";
+import { SafeAreaView, StyleSheet, TextInput, Button, Text, View, TouchableOpacity, ScrollView, ToastAndroid } from "react-native";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const LoginPage = (props) => {
+const LoginPage = ({navigation}) => {
   //const [text, onChangeText] = React.useState("Useless Text");
   const [email, setEmail] = React.useState();
   const [emailError, setEmailError] = React.useState();
   const [password, setPassword] = React.useState();
   const [passwordVisibility, setPasswordVisibility] = React.useState(true);
   const [hideShowText, setHideShowText] = React.useState('Show');
+  // const [isLoggedIn, setIsLoggedIn] = React.useState(false);
   // const [number, onChangeNumber] = React.useState(null);
+  const dummy = {
+    email: 'dummy@gmail.com',
+    password: 'dummy'
+  }
 
   const emailValidator = (email) => {
     let regex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w\w+)+$/;
@@ -22,8 +28,18 @@ const LoginPage = (props) => {
     }
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     console.log("submitting");
+    if(email === dummy.email && password === dummy.password){
+      navigation.navigate('Todo', {email: email});
+      // setIsLoggedIn(true);
+      // await AsyncStorage.setItem('logged', isLoggedIn);
+      console.log(email);
+      setEmail('');
+      setPassword('');
+    }else{
+      alert("Bad Credentials");
+    }
   }
 
   const handlePasswordVisibility = () => {
@@ -88,7 +104,7 @@ const LoginPage = (props) => {
           onPress={() => props.navigation.navigate('Signup')}
           /> */}
         </Text>
-        <Text onPress={() => props.navigation.navigate('Signup')} style={styles.footingbtn}>Sign Up</Text>
+        <Text onPress={() => navigation.navigate('Signup')} style={styles.footingbtn}>Sign Up</Text>
       </View>
       </ScrollView>
       </View>

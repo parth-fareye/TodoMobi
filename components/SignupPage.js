@@ -1,7 +1,7 @@
 import React from "react";
 import { SafeAreaView, StyleSheet, TextInput, Button, Text, View, TouchableOpacity, ScrollView } from "react-native";
 
-const SignupPage = (props) => {
+const SignupPage = ({navigation}) => {
   //const [text, onChangeText] = React.useState("Useless Text");
   const [email, setEmail] = React.useState();
   const [emailError, setEmailError] = React.useState();
@@ -95,7 +95,7 @@ const SignupPage = (props) => {
             onPress={() => props.navigation.navigate('Login')}
             /> */}
             </Text>
-            <Text onPress={() => props.navigation.navigate('Login')} style={styles.footingbtn}>Login</Text>
+            <Text onPress={() => navigation.navigate('Login')} style={styles.footingbtn}>Login</Text>
         </View>
         </ScrollView>
         </View>
